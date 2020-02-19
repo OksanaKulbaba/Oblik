@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Client</title>
+     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+    <link href="https://getbootstrap.com/docs/4.0/examples/signin/signin.css" rel="stylesheet" crossorigin="anonymous">
+
+
+</head>
+<body>
+<div class="container">
+
+    <form  method="get" th:action="@{/client/all}">
+        <div class="form-signin">
+<!--        <h2 class="form-signin-heading">Пошук</h2>-->
+<!--        <p>-->
+<!--            <label for="client" class="sr-only">Name of Client</label>-->
+<!--        </p>-->
+<!--            <input type="text" id="client" name="filter1" class="form-control" placeholder="Назва компанії" required="" autofocus="">-->
+<!--&lt;!&ndash;        <p>&ndash;&gt;-->
+<!--            <label class="sr-only">ЕДРПОУ</label>-->
+<!--        <p>-->
+<!--            <input type="text" value="" name="filter" class="form-control" placeholder="ЄДРПОУ" required="">-->
+
+<!--        <p>-->
+
+<!--        </p>-->
+<!--        <button class="btn btn-lg btn-primary btn-block"  type="submit">Знайти</button>-->
+            <h2 class="form-signin-heading">Результат</h2>
+
+        </div>
+
+       <table class="table" >
+              <thead>
+            <tr th:if="${clients == null}" >
+            <td colspan="2"> нет доступных клиентов
+            </td>
+                <tr>
+                <th> Name</th>
+                <th> EDRPOY</th>
+                <th> DateOfReg</th>
+            </tr>
+
+        </thead>
+
+          <tbody>
+
+            <tr th:each="client: ${clients}" >
+<!--              <td><span th:text="${client}"> Test1 </span></td>-->
+              <td><span th:text="${client.getEDRPOW()}"> 123 </span></td>
+              <td><span th:text="${client.getDateOfReg()}">2344  </span></td>
+          </tr>
+
+          </tr>
+<!--          <tr>-->
+<!--          <tr th:each="client, rowstat: ${clientsF}" >-->
+<!--            <td><span th:text="${client}"> Test1 </span></td>-->
+<!--            <td><span th:text="${client.getEDRPOW()}"> 123 </span></td>-->
+<!--            <td><span th:text="${client.getDateOfReg()}">2344  </span></td>-->
+<!--          </tr>-->
+          </tbody>
+
+            </table>
+<!--            </form>-->
+<!--        </div>-->
+
+    </form>
+</div>
+
+</body>
+</html>
