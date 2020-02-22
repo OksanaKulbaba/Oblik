@@ -6,34 +6,22 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.sql.Date;
-
-
-@AllArgsConstructor
-@NoArgsConstructor
 @Entity
 @Table(name = "client")
 
-public  class Client {
+public class Client extends AbstractEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private   Long ID;
 
-
-    @Column (name = "DateOfReg")
     private  Date DateOfReg;
-
-
-    @Column  (name = "DateOfEnd")
     private Date DateOfEnd;
 
-    @Column(name="EDRPOW_INN")
-    private  Long EDRPOW;
 
-
+    private  String EDRPOW;
 
     @ManyToOne
-  //  @Column(name = "OrgForm_id")
-    @JoinColumn(name = "OrgForm_id")
+    @JoinColumn(name = "org_form_id")
     private  OrgForm orgForm;
 
     public Date getDateOfReg() {
@@ -48,10 +36,10 @@ public  class Client {
     public void setDateOfEnd(Date dateOfEnd) {
         DateOfEnd = dateOfEnd;
     }
-    public Long getEDRPOW() {
+    public String getEDRPOW() {
         return EDRPOW;
     }
-    public void setEDRPOW(Long EDRPOW) {
+    public void setEDRPOW(String EDRPOW) {
         this.EDRPOW = EDRPOW;
     }
 
@@ -62,16 +50,7 @@ public  class Client {
         this.orgForm = orgForm;
     }
 
-    @Override
-    public String toString() {
-        return "Client{" +
-                "ID=" + ID +
-                ", DateOfReg=" + DateOfReg +
-                ", DateOfEnd=" + DateOfEnd +
-                ", EDRPOW=" + EDRPOW +
-                ", orgForm=" + orgForm +
-                '}';
-    }
+
 }
 
 

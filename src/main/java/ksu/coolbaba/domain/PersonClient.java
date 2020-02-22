@@ -4,7 +4,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "clientperson")
-public class ClientPerson  {
+public class PersonClient {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private  Integer ID;
@@ -12,8 +12,8 @@ public class ClientPerson  {
     private  String SecondName;
     private  String MiddleName;
 
-
-   @OneToOne (cascade = CascadeType.ALL)
-   @JoinColumn(name = "id_client")
+    @OneToOne (cascade = CascadeType.ALL)
+    @JoinColumn(name = "client_id")
     private Client client;
+
 }

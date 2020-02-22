@@ -7,6 +7,6 @@ import java.util.List;
 
 public interface ContractrRepo extends CrudRepository <Contract,Long>{
 
-
+        List<Contract> findByNumberOFContract(String numberOfContract);
 
 }

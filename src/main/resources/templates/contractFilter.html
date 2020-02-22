@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Contract</title>
+
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+    <link href="https://getbootstrap.com/docs/4.0/examples/signin/signin.css" rel="stylesheet" crossorigin="anonymous">
+
+</head>
+<body>
+<div class="container">
+
+    <div class="form-signin">
+        <div class="btn btn-lg btn-block">Contract</div>
+    </div>
+
+    <div class="btn-block">
+    <footer th:fragment="footer">
+        <a class="btn btn-lg btn-primary" href="index.html" th:href="@{/index}">Home</a>
+        <a class="btn btn-lg btn-primary" href="contractFilter.html" th:href="@{/contractfilter}">Seach</a>
+        <a class="btn btn-lg btn-primary" href="contractSave.html" th:href="@{/contractsave}">Add</a>
+        <button class=" btn btn-lg btn-primary" type="submit" th:href ="@{/logout}">Exit</button>
+    </footer>
+</div>
+<div class="container">
+    <form  method="get" th:action="@{/contractfilter}">
+        <div class="form-signin">
+            <input class="btn btn-lg  btn-block" th:name="filter" placeholder="Number of Contact">
+            <button class="btn btn-lg btn-primary btn-block" >Search</button>
+        </div>
+
+
+        <table class="table table-hover table-border" >
+            <thead>
+            <tr th:if="${filter == null}" >
+                <td colspan="2"> нет доступных контрактов
+                </td>
+            <tr >
+                <th class="btn-primary"> Number of coontract</th>
+                <th class="btn-primary"> Date of contract</th>
+                <th class="btn-primary"> ЄДРПОУ of Client</th>
+
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="btn-lg " th:each="contract : ${contracts}">
+                <td ><span th:text="${contract.getNumberOFContract()}"> Test1 </span></td>
+                <td ><span th:text="${contract.getDateOfRer()}"> Test1 </span></td>
+                <td ><span th:text="${contract.getClient().getEDRPOW()}"> Test1 </span></td>
+            </tr>
+            </tr>
+            </tbody>
+        </table>
+
+    </form>
+</div>
+</div>
+</body>
+</html>

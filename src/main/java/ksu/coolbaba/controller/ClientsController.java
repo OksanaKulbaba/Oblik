@@ -2,61 +2,87 @@ package ksu.coolbaba.controller;
 
 
 import ksu.coolbaba.domain.Client;
+import ksu.coolbaba.domain.CorpClient;
 import ksu.coolbaba.repos.ClientsRepo;
-import ksu.coolbaba.repos.CorpClientPepo;
+import ksu.coolbaba.repos.CorpClientRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
 
-@RequestMapping("/client")
+@RequestMapping("")
 @Controller
 public class ClientsController {
     @Autowired
     public ClientsRepo clientsRepo;
 
     @Autowired
-    public CorpClientPepo corpClientPepo;
+    public CorpClientRepo corpClientRepo;
 
-    @GetMapping("/all")
+    @GetMapping("/client")
     public String clients(Model model) {
-       Iterable<Client> clientsF = clientsRepo.findAll();
-        List<Client> clients = new ArrayList<>();
-        clientsF.forEach(clients::add);
-       model.addAttribute("clients",clients);
+       Iterable<CorpClient> corpClients = corpClientRepo.findAll();
+//       Iterable<Client> clientsF = clientsRepo.findAll();
+//       List<CorpClient> clients = new ArrayList<>();
+//       corpClients.forEach(clients::add);
+       model.addAttribute("clients",corpClients);
         return "client";
     }
-    @GetMapping("/filter")
+    @GetMapping("/clientfilter")
     public String main(@RequestParam(required = false, defaultValue = "") String filter, Model model) {
-        Iterable<Client> clients = clientsRepo.findAll();
+        Iterable<CorpClient> clientsF = corpClientRepo.findAll();
 
         if (filter != null && !filter.isEmpty()) {
-            clients = clientsRepo.findByEDRPOW(filter);
+            clientsF = corpClientRepo.findByClientEDRPOW(filter);
         } else {
-            clients = clientsRepo.findAll();
+            clientsF = corpClientRepo.findAll();
         }
-        List<Client> clientsF = new ArrayList<>();
-        clients.forEach(clientsF::add);
+        List<CorpClient> clients = new ArrayList<>();
+        clientsF.forEach(clients::add);
 
-        model.addAttribute("clientsF", clientsF);
+        model.addAttribute("clients", clients);
         model.addAttribute("filter", filter);
 
-        return "client";
+        return "clientFilter";
+    }
+
+    @PostMapping("/clientsave")
+     public String addClients
+            (
+            @RequestParam  String shortName,
+            @RequestParam String fullName,
+            @RequestParam String edrpow,
+            @RequestParam Date dateOfReg,
+            @ModelAttribute Client newClient,
+            @ModelAttribute CorpClient newCorpClient,
+                     Model model  )  {
+
+
+        CorpClient corpClient = new CorpClient();
+        corpClient.setFullName(fullName);
+        corpClient.setShortName(shortName);
+
+        Client client = new Client();
+        client.setDateOfReg(dateOfReg);
+        client.setEDRPOW(edrpow);;
+         corpClient.setClient(client);
+
+        model.addAttribute("client", corpClientRepo.findAll());
+
+        corpClientRepo.save(corpClient);
+        return "clientSave";
+    }
+
+    @GetMapping("/clientsave")
+    public String save(){
+        return "clientSave";
     }
 
 
-    @PostMapping("/save")
-     public String addClients (@ModelAttribute Client newClient,
-                               Model model  )  {
-
-        model.addAttribute("client", clientsRepo.findAll());
-
-        clientsRepo.save(newClient);
-        return "save";
-    }
 
 }
