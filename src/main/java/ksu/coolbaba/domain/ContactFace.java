@@ -9,11 +9,8 @@ import javax.persistence.*;
 @Setter
 @Entity
 @Table(name = "contactface")
-public class ContactFace {
+public class ContactFace extends abstractEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private   Long  ID;
     private   String FirstName;
     private   String SecondName;
     private  String MiddleName;

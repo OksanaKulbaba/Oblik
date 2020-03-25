@@ -3,7 +3,8 @@ package ksu.coolbaba.controller;
 import ksu.coolbaba.domain.Client;
 import ksu.coolbaba.domain.Contract;
 import ksu.coolbaba.repos.ClientsRepo;
-import ksu.coolbaba.repos.ContractrRepo;
+import ksu.coolbaba.servise.imp.ClientServiceImp;
+import ksu.coolbaba.servise.imp.ContractServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,86 +15,86 @@ import java.sql.Date;
 @RequestMapping("")
 @Controller
 public class ContractController {
-    @Autowired
-    ContractrRepo contractrRepo;
-
-
+   @Autowired
+    private  ContractServiceImp contractServiceImp;
 
     @Autowired
-    ClientsRepo clientsRepo;
-
-//
-//    @GetMapping("/contract")
-//    public String contracts (Model model) {
-//        Iterable<Contract> corpClients = contractrRepo.findAll();
-////       List<CorpClient> clients = new ArrayList<>();
-////       corpClients.forEach(clients::add);
-//        model.addAttribute("contracts",corpClients);
-//        return "contract";
-//    }
-
-    @GetMapping("/contract")
-    public String contract(){
-        return "contract";
-    }
+    ClientServiceImp clientServiceImp;
 
 
-    @GetMapping("/contractfilter")
-    public String main(@RequestParam(required = false, defaultValue = "") String filter, Model model) {
+    @GetMapping("/contractSearch")
+    public String main(@RequestParam(required = false, defaultValue = "")  String filter,
+            //   @RequestParam Long idClient,
+                                 //  @RequestParam String nameClient,
+                                   Model model) {
         Iterable<Contract> contracts;
+        Long idClient4 = new Long(20);
+
 
         if (filter != null && !filter.isEmpty()) {
-            contracts = contractrRepo.findByNumberOFContract(filter);
-        } else {
-            contracts = contractrRepo.findAll();
+            contracts = contractServiceImp.findByNumber(filter);
+        }
+//        else if (nameClient !=null) {
+//              contracts = contractServiceImp.getAllContractByClient(clientServiceImp.getClientByName(nameClient));
+//        }
+        else {
+            contracts = contractServiceImp.getAllContract();
         }
 
         model.addAttribute("contracts", contracts);
         model.addAttribute("filter", filter);
+        model.addAttribute("clients",clientServiceImp.findAll());
 
-
-        return "contractFilter";
+        return "contractSearch";
     }
 
-    @PostMapping("/contractsave")
+    @PostMapping("/contractAdd")
     public String addContract
             (
-                    @RequestParam  String numberOfContract,
-                    @RequestParam Date DateOfStart,
-                    @RequestParam Date DateOfEnd,
-                     @RequestParam String client,
-//
+                    @RequestParam  String number,
+                    @RequestParam Date Date,
+                      @RequestParam Long idClient,
+
                 //   @ModelAttribute Contract newContract,
 //                    @ModelAttribute CorpClient newCorpClient,
                     Model model  )  {
 
 
         Contract contract = new Contract();
-        contract.setNumberOFContract(numberOfContract);
-        contract.setDateOfRer(DateOfStart);
-        contract.setDateOfEnd(DateOfEnd);
-//       List<Client> client1 = clientsRepo.findByEDRPOW(client);
+        contract.setNumberOFContract(number);
+        contract.setDataStart(Date);
 
-//        if (client2 !=null) {
-//            contract.setClient(client2);
-//            model.addAttribute("clients", clientsRepo.findAll());
-//        }
-//        else {
-//              contract.setClient(new Client());
-//        }
-//        contract.setClient(newClient);
-//        model.addAttribute("contract", contractrRepo.findAll());
 
-        contractrRepo.save(contract);
-        return "contractSave";
+
+        if (idClient !=null) {
+            contract.setClient(clientServiceImp.getClientById(idClient));
+            model.addAttribute("clients", clientServiceImp.findAll());
+        }
+        else {
+              contract.setClient(new Client());
+        }
+
+        model.addAttribute("contract", contractServiceImp.getAllContract());
+
+        contractServiceImp.addContract(contract);
+        return "contractAdd";
     }
-    @GetMapping("/contractsave")
+    @GetMapping("/contractAdd")
 
-    public String saveGet( Model model)
-    { Iterable<Client> clients = clientsRepo.findAll();
-    model.addAttribute("clients", clients);
-               return "contractSave";
+    public String client(Model model) {
+        Iterable<Client> clients = clientServiceImp.findAll();
+        model.addAttribute("clients",clients);
+
+        return "contractAdd";
     }
 
+    @GetMapping("/contractSearch2")
+
+    public String client2(Model model) {
+        Iterable<Client> clients = clientServiceImp.findAll();
+        model.addAttribute("clients",clients);
+
+        return "contractSearch";
+    }
 
 }

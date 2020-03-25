@@ -1,4 +1,4 @@
-package ksu.coolbaba.servise;
+package ksu.coolbaba.servise.imp;
 
 import ksu.coolbaba.repos.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;

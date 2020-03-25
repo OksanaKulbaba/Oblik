@@ -1,22 +1,17 @@
 package ksu.coolbaba.domain;
 
-import lombok.AllArgsConstructor;
 
+
+import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.sql.Date;
+@NoArgsConstructor
+@AllArgsConstructor
+@Inheritance (strategy = InheritanceType.JOINED)
 @Entity
-@Table(name = "client")
 
-public class Client extends AbstractEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private   Long ID;
-
-    private  Date DateOfReg;
-    private Date DateOfEnd;
-
+public class Client  extends abstractClassDate {
 
     private  String EDRPOW;
 
@@ -24,18 +19,6 @@ public class Client extends AbstractEntity {
     @JoinColumn(name = "org_form_id")
     private  OrgForm orgForm;
 
-    public Date getDateOfReg() {
-        return DateOfReg;
-    }
-    public void setDateOfReg(Date dateOfReg) {
-        DateOfReg = dateOfReg;
-    }
-    public Date getDateOfEnd() {
-        return DateOfEnd;
-    }
-    public void setDateOfEnd(Date dateOfEnd) {
-        DateOfEnd = dateOfEnd;
-    }
     public String getEDRPOW() {
         return EDRPOW;
     }
@@ -49,6 +32,9 @@ public class Client extends AbstractEntity {
     public void setOrgForm(OrgForm orgForm) {
         this.orgForm = orgForm;
     }
+    public String getname(){
+        return "Name";
+    };
 
 
 }

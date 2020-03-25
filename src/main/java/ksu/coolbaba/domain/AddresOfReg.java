@@ -7,11 +7,9 @@ import java.sql.Date;
 
 @Entity
 @Table(name = "addresofreg")
-public class AddresOfReg {
+public class AddresOfReg  extends abstractClassDate{
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private  Integer ID;
+
     private  Date DateOfReg;
     private Date DateOfEnd;
     private  Long PostIndex;

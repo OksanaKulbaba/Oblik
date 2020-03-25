@@ -4,16 +4,16 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "clientperson")
-public class PersonClient {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private  Integer ID;
+@PrimaryKeyJoinColumn(name = "client")
+public class PersonClient  extends Client{
+
     private  String FirstName;
     private  String SecondName;
     private  String MiddleName;
 
     @OneToOne (cascade = CascadeType.ALL)
-    @JoinColumn(name = "client_id")
+    @JoinColumn(name = "id")
     private Client client;
 
 }
+

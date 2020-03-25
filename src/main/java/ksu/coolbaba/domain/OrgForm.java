@@ -1,37 +1,39 @@
 package ksu.coolbaba.domain;
 
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 
-
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "orgform")
-public class OrgForm {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private   Integer ID;
-    private   String FullName;
+public class OrgForm extends abstractEntity {
+
+    private   String fullName;
 
     @Column (name = "short_name")
-    private  String ShortName;
+    private  String shortName;
     private  String EngFullName;
     private  String EngShortName;
     private  String note;
     private  TypeOfForm  typeOfForm;
 
     public String getFullName() {
-        return FullName;
+        return fullName;
     }
 
     public void setFullName(String fullName) {
-        FullName = fullName;
+        this.fullName = fullName;
     }
 
     public String getShortName() {
-        return ShortName;
+        return shortName;
     }
 
     public void setShortName(String shortName) {
-        ShortName = shortName;
+        this.shortName = shortName;
     }
 
     public String getEngFullName() {
@@ -64,5 +66,10 @@ public class OrgForm {
 
     public void setTypeOfForm(TypeOfForm typeOfForm) {
         this.typeOfForm = typeOfForm;
+    }
+
+    @Override
+    public Long getID() {
+        return super.getID();
     }
 }

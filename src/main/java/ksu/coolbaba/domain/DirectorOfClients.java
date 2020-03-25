@@ -6,11 +6,7 @@ import java.time.LocalDate;
 
 
 @Table(name = "directorofclients")
-public class DirectorOfClients {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long ID;
-
+public class DirectorOfClients  extends abstractClassDate{
 
    @OneToMany (mappedBy = "directorofclients")
    @JoinColumn (name ="contactFace_id")

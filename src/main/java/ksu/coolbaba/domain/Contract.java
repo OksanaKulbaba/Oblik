@@ -7,21 +7,26 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.time.LocalDate;
 
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
 @Table(name = "contract")
-public class Contract {
+public class Contract extends abstractClassDate {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private   Integer ID;
     private  String numberOFContract;
-    private Date DateOfRer;
-    private  Date DateOfEnd;
+
     private  FormOfPay formOfPay;
+
+    @OneToOne
+    private  Act actTest1;
+
+    @OneToOne
+    private  Act actTest2;
+
+
 
     @ManyToOne
     @JoinColumn(name = "id_client")
@@ -36,21 +41,6 @@ public class Contract {
         this.numberOFContract = numberOFContract;
     }
 
-    public Date getDateOfRer() {
-        return DateOfRer;
-    }
-
-    public void setDateOfRer(Date dateOfRer) {
-        DateOfRer = dateOfRer;
-    }
-
-    public Date getDateOfEnd() {
-        return DateOfEnd;
-    }
-
-    public void setDateOfEnd(Date dateOfEnd) {
-        DateOfEnd = dateOfEnd;
-    }
 
     public FormOfPay getFormOfPay() {
         return formOfPay;
@@ -67,4 +57,6 @@ public class Contract {
     public void setClient(Client client) {
         this.client = client;
     }
+
+
 }

@@ -5,10 +5,8 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "servise")
-public class Servise {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private  Integer ID;
+public class Servise extends abstractClassDate {
+
     private  String NameOfService;
     private   TypeOfService typeOfService;
 }

@@ -9,4 +9,9 @@ import java.util.List;
 public interface ClientsRepo extends CrudRepository<Client, Long> {
 
     List<Client> findByEDRPOW(String edrpow);
+
+    Client getByID(Long id);
+
+
+
 }

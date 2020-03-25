@@ -9,15 +9,13 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Entity
 @Table(name = "corpclient")
-public class CorpClient {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private  Integer ID;
+public class CorpClient  extends Client{
+
     private  String FullName;
     private  String ShortName;
 
     @OneToOne (cascade = CascadeType.ALL)
-    @JoinColumn(name = "id_client")
+    @JoinColumn(name = "id")
     private Client client;
 
     public String getFullName() {
@@ -37,10 +35,15 @@ public class CorpClient {
     }
 
     public Client getClient() {
-        return client;
-    }
+    return client;
+}
 
     public void setClient(Client client) {
         this.client = client;
+    }
+
+    @Override
+    public String getname() {
+        return this.getShortName();
     }
 }

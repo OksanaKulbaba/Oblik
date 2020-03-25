@@ -8,15 +8,17 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class MainController {
 
     @GetMapping("/")
-    public String greeting() {
+    public String index() {
         return "index";
     }
+
     @GetMapping("/index")
-    public String greeting2() {
+    public String index2() {
         return "index";
     }
+
     @GetMapping("/login")
-    public String greeting3() {
+    public String loggin() {
         return "login";
     }
 

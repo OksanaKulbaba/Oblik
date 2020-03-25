@@ -1,7 +1,7 @@
 package ksu.coolbaba.config;
 
 
-import ksu.coolbaba.servise.UserService;
+import ksu.coolbaba.servise.imp.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.context.annotation.Configuration;
@@ -26,7 +26,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                    .antMatchers("/login").permitAll()
+                    .antMatchers("/","/index", "/login").permitAll()
+                    .antMatchers("/resources/**", "/static/**", "/css/**", "/js/**", "/images/**","/fonts/***","/bat/**").permitAll()
                     .anyRequest().authenticated()
                     .and()
                 .formLogin()
@@ -41,7 +42,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(WebSecurity web){
         web
                 .ignoring()
-                .antMatchers("/resources/", "/static/", "/css/", "/js/", "/images/");
+                .antMatchers("/resources/", "/static/", "/css/", "/js/", "/images/","/fonts/");
     }
 
     @Override
